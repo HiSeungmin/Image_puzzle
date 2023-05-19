@@ -33,7 +33,7 @@ function checkStatus() {
 function setGame(){
     isPlaying = true;
     time = 0;
-    container.innerHTML = "";
+    container.innerHTML = ""; // container 초기화 해줌
     gameText.style.display = 'none'
     clearInterval(timeInterval)
 
@@ -43,12 +43,12 @@ function setGame(){
 
     setTimeout(()=>{
         container.innerHTML = ""; //타일이 겹칠 수 있으니까 한 번 초기화 해줌.
-        shuffle(tiles).forEach(tile => container.appendChild(tile))
+        shuffle(tiles).forEach(tile => container.appendChild(tile)) // 섞은 타일이 보여짐
         timeInterval = setInterval(()=> {
             playTime.innerText = time;
             time++;
         }, 1000)
-    }, 5000) // 2초 뒤 타일 섞음.
+    }, 5000) // 5초 뒤 타일 섞음.
 }
 
 function createImageTiles(){
@@ -56,21 +56,21 @@ function createImageTiles(){
     Array(tileCount).fill().forEach((_, i)=> {
         const li = document.createElement("li");
         li.setAttribute('data-index', i)
-        li.setAttribute('draggable', 'true'); //드래그 할 때마다 보임
+        li.setAttribute('draggable', 'true'); //이 속성을 추가하면 li를 드래그 할 때마다 깔끔하게 잘 적용됨.
         li.classList.add(`list${i}`);
         // console.log(li)
-        tempArray.push(li)
+        tempArray.push(li) //생성된 li를 배열에 다 담아줌.
     })
     return tempArray;
 }
 
 // 타일 섞는 함수
 function shuffle(array){
-    let index = array.length - 1; //마지막 인덱스
+    let index = array.length - 1; //마지막 인덱스 선택
     while(index > 0){
         const randomIndex = Math.floor(Math.random()*(index+1)); // 소수점 자르기
         [array[index], array[randomIndex]] = [array[randomIndex], array[index]] // 두개 위치 바꾸기
-        index--;
+        index--; // 인덱스 1씩 감소
     }
     return array;
 }
